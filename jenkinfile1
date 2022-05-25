@@ -6,10 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat echo 'Checking node.js version..'
-                bat echo 'node -v'
-                bat echo 'Restore nugets..'
-                bat 'nuget restore  C:\Projects\HYLIA\HYLIA_API\RosterAutomation.sln'
+              
                 bat echo 'Building..'
                 bat "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MsBuild.exe " C:\Projects\HYLIA\HYLIA_API\RosterAutomation.sln /t:Rebuild /p:Configuration=Debug /v:m /p:VisualStudioVersion=14.0 /clp:Summary;ErrorsOnly;WarningsOnly /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}
             }
