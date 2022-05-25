@@ -1,12 +1,20 @@
-stage('SonarQube analysis') {
-        steps {
-            script{
-            def scannerHome = tool 'sonarscan';
-            withSonarQubeEnv('sonarqube') {
-                sh "${tool("sonarscan")}/bin/sonar-scanner \
-                    -Dsonar.projectKey=Jenkin-Test-Project \
-                    -Dsonar.projectName=Jenkin-Test-Project"
+ pipeline {
+        agent none
+        stages {
+          stage("build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('sonarqube') {
+                sh 'mvn clean package sonar:sonarqube'
+              }
             }
+          }
+          stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
             }
+          }
         }
-    }
+      }
