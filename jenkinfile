@@ -3,12 +3,9 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    def msbuildHome = tool 'Default MSBuild'
-    def scannerHome = tool 'SonarScanner for MSBuild'
+    def scannerHome = tool 'SonarScanner';
     withSonarQubeEnv() {
-      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" begin /k:\"Jenkin-Test-Project\""
-      bat "\"${msbuildHome}\\MSBuild.exe\" /t:Rebuild"
-      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" end"
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 }
