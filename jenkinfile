@@ -5,7 +5,7 @@
             agent any
             steps {
               withSonarQubeEnv('sonarqube') {
-                sh'SonarScanner for MSBuild 5.5.3.43281 - .NET Fwk 4.6'
+                sh'SonarScanner for MSBuild 5.5.3.43281'
               }
             }
           }
