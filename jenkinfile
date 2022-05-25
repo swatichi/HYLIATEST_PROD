@@ -1,17 +1,12 @@
-pipeline {
-    agent any
-    stages {
-     stage('Clone sources') {
-            steps {
-                git url: 'https://github.com/swatichi/HYLIATEST_PROD/'
+stage('SonarQube analysis') {
+        steps {
+            script{
+            def scannerHome = tool 'sonarscan';
+            withSonarQubeEnv('sonarqube') {
+                sh "${tool("sonarscan")}/bin/sonar-scanner \
+                    -Dsonar.projectKey=Jenkin-Test-Project \
+                    -Dsonar.projectName=Jenkin-Test-Project"
+            }
             }
         }
-           stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "SonarScanner.MSBuild.exe"
-                }
-            }
-        }
-           }
-}
+    }
