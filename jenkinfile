@@ -10,8 +10,8 @@ node {
       bat "\"${msbuildHome}\\MSBuild.exe\" /t:Rebuild"
       bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" end"
     }
- sh (
-   
+sh (
+   script: 'YOUR SCRIPT',
    returnStatus: true
  )
 }
