@@ -4,7 +4,10 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- - task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    msbuildArgs: 'test'
 
 pool:
   vmImage: ubuntu-latest
